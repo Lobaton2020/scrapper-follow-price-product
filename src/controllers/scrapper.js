@@ -1,28 +1,36 @@
 const fs = require('fs');
 const { getDataFromDB } = require('../services/scrapper');
+
 const showDataOrdered = async(req,res)=>{
     let data =  getDataFromDB();
-    Object.entries(data).forEach(([key,value])=>{
-        data[key] = value.map((all)=> ({
-            ...all,
-            date: new Date(all.date).toLocaleString()
-        }));
+    const info = Object.entries(data).map(([key,value])=>{
+        return [
+            key,
+            value.map((all)=> ({
+                ...all,
+                date: new Date(all.date).toLocaleString()
+            }))
+        ];
     });
-    return res.render('scrapper', { data});
+    return res.render('scrapper', { data: info});
 };
 
-const showDataTables = async(req,res)=>{
+const showDataJson = async(req,res)=>{
     let data =  getDataFromDB();
-    Object.entries(data).forEach(([key,value])=>{
-        data[key] = value.map((all)=> ({
-            ...all,
-            date: new Date(all.date).toLocaleString()
-        }));
+    const info = Object.entries(data).map(([key,value])=>{
+        return [
+            key,
+            value.map((all)=> ({
+                ...all,
+                date: new Date(all.date).toLocaleString(),
+                dateorder: new Date(all.date).getTime()
+            }))
+        ];
     });
-    return res.render('scrapper-table.hbs', { data});
+    return res.json(info);
 };
 
 module.exports = {
     showDataOrdered,
-    showDataTables
+    showDataJson
 }

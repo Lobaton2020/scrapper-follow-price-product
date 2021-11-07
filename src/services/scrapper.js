@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 var config = require('./../config');
+const { checkSendEmail } = require('./mail');
 const saveDataToDB = (data)=>{
     try{
         fs.writeFileSync('./data/data.json', JSON.stringify(data));
@@ -55,6 +56,7 @@ const scrapper = async({scrapper:scrapperIn, selectors})=>{
         result.forEach(item=>{
             Object.entries(item).forEach(([key,val])=>{
                 initialData[key] = initialData[key] || [];
+                checkSendEmail(initialData, {[key]:[val]});
                 initialData[key] = [...initialData[key], val];
             });
         });

@@ -33,8 +33,13 @@ const toNumber = ({ price })=> parseInt(price.replace(/\./g, ''));
 module.exports.checkSendEmail = (oldData,newData)=>{
     let isSendEmail = false;
     let data = {};
-    Object.entries(oldData).forEach(([key,value])=>{
-        const maxOld = oldData[key].map(toNumber).reduce((a,b)=>a<b?a:b);
+    const key = Object.keys(newData)[0];
+    if(!["object","array"].includes(typeof(oldData[key]))) {
+        return console.log(`oldData[${key}] is not array`);
+    }
+    try{
+
+        const maxOld = oldData[key].map(toNumber).reduce((a,b,)=>a<b?a:b);
         const minNew = newData[key].map(toNumber).reduce((a,b)=>a<b?a:b);
         if(minNew < maxOld ){
             data = {
@@ -45,10 +50,12 @@ module.exports.checkSendEmail = (oldData,newData)=>{
             };
             isSendEmail = true;
         }
-    });
-    if(isSendEmail){
-        sendEmail(config.email,`New product with price lowest :${JSON.stringify(data)}`);
-        return isSendEmail;
+        if(isSendEmail){
+            sendEmail(config.email,`New product with price lowest :${JSON.stringify(data)}`);
+            return isSendEmail;
+        }
+        return isSendEmail
+    }catch(err){
+        console.log(err,"Error al enviar correo");
     }
-    return isSendEmail
-};
+    };

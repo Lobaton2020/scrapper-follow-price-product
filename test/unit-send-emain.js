@@ -57,7 +57,7 @@ describe("Correct funcion checkSendEmail",()=>{
         const newData =   {
                 link1 : [{
                     title: 'Monitor LG 34 34wn80c-b Ultrawide Curvo Ips Hdr',
-                    price: '1.181.000',
+                    price: '181.000',
                     date: '2021-11-07T05:52:09.664Z'
                 }],
 
