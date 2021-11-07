@@ -1,0 +1,25 @@
+{
+  "name": "follow-product-link",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon --ignore data/ index.js",
+    "test": "mocha "
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^5.3.4",
+    "nodemailer": "^6.7.0",
+    "puppeteer": "^11.0.0",
+    "puppeteer-core": "^1.9.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^9.1.3"
+  }
+}
